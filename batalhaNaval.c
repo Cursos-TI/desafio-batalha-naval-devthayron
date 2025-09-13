@@ -1,40 +1,69 @@
 #include <stdio.h>
 
-// Desafio Batalha Naval - MateCheck
-// Este código inicial serve como base para o desenvolvimento do sistema de Batalha Naval.
-// Siga os comentários para implementar cada parte do desafio.
+#define TAM 10   // tamanho fixo do tabuleiro
+#define NAVIO 3  // valor que representa as partes do navio
+#define TAM_NAVIO 3 // tamanho fixo dos navios (3 casas)
+
+// Função para exibir o tabuleiro completo
+void exibirTabuleiro(int tabuleiro[TAM][TAM]) {
+    printf("\nTabuleiro:\n\n");
+    for (int i = 0; i < TAM; i++) {
+        for (int j = 0; j < TAM; j++) {
+            printf("%d ", tabuleiro[i][j]); // imprime o valor da posição
+        }
+        printf("\n");
+    }
+}
 
 int main() {
-    // Nível Novato - Posicionamento dos Navios
-    // Sugestão: Declare uma matriz bidimensional para representar o tabuleiro (Ex: int tabuleiro[5][5];).
-    // Sugestão: Posicione dois navios no tabuleiro, um verticalmente e outro horizontalmente.
-    // Sugestão: Utilize `printf` para exibir as coordenadas de cada parte dos navios.
+    // -------------------------------
+    // 1. Inicializar tabuleiro 10x10
+    // -------------------------------
+    int tabuleiro[TAM][TAM];
+    for (int i = 0; i < TAM; i++) {
+        for (int j = 0; j < TAM; j++) {
+            tabuleiro[i][j] = 0; // todas as posições começam com água
+        }
+    }
 
-    // Nível Aventureiro - Expansão do Tabuleiro e Posicionamento Diagonal
-    // Sugestão: Expanda o tabuleiro para uma matriz 10x10.
-    // Sugestão: Posicione quatro navios no tabuleiro, incluindo dois na diagonal.
-    // Sugestão: Exiba o tabuleiro completo no console, mostrando 0 para posições vazias e 3 para posições ocupadas.
+    // -------------------------------
+    // 2. Declarar navios (vetores)
+    // Cada navio ocupa 3 casas
+    // -------------------------------
+    int navioHorizontal[TAM_NAVIO] = {NAVIO, NAVIO, NAVIO};
+    int navioVertical[TAM_NAVIO]   = {NAVIO, NAVIO, NAVIO};
 
-    // Nível Mestre - Habilidades Especiais com Matrizes
-    // Sugestão: Crie matrizes para representar habilidades especiais como cone, cruz, e octaedro.
-    // Sugestão: Utilize estruturas de repetição aninhadas para preencher as áreas afetadas por essas habilidades no tabuleiro.
-    // Sugestão: Exiba o tabuleiro com as áreas afetadas, utilizando 0 para áreas não afetadas e 1 para áreas atingidas.
+    // -------------------------------
+    // 3. Definir coordenadas iniciais
+    // Exemplo fixo: horizontal na linha 2, col 4
+    //              vertical   na linha 5, col 7
+    // -------------------------------
+    int linhaH = 2, colH = 4; // navio horizontal
+    int linhaV = 5, colV = 7; // navio vertical
 
-    // Exemplos de exibição das habilidades:
-    // Exemplo para habilidade em cone:
-    // 0 0 1 0 0
-    // 0 1 1 1 0
-    // 1 1 1 1 1
-    
-    // Exemplo para habilidade em octaedro:
-    // 0 0 1 0 0
-    // 0 1 1 1 0
-    // 0 0 1 0 0
+    // -------------------------------
+    // 4. Posicionar navio horizontal
+    // -------------------------------
+    for (int i = 0; i < TAM_NAVIO; i++) {
+        // validação: não pode sair do limite
+        if (colH + i < TAM && tabuleiro[linhaH][colH + i] == 0) {
+            tabuleiro[linhaH][colH + i] = navioHorizontal[i];
+        }
+    }
 
-    // Exemplo para habilidade em cruz:
-    // 0 0 1 0 0
-    // 1 1 1 1 1
-    // 0 0 1 0 0
+    // -------------------------------
+    // 5. Posicionar navio vertical
+    // -------------------------------
+    for (int i = 0; i < TAM_NAVIO; i++) {
+        if (linhaV + i < TAM && tabuleiro[linhaV + i][colV] == 0) {
+            tabuleiro[linhaV + i][colV] = navioVertical[i];
+        }
+    }
+
+    // -------------------------------
+    // 6. Exibir tabuleiro
+    // -------------------------------
+    exibirTabuleiro(tabuleiro);
 
     return 0;
 }
